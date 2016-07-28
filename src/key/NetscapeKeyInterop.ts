@@ -1,3 +1,6 @@
+/// <reference path="Key" />
+/// <reference path="KeyInterop" />
+
 namespace tiny.key {
     var sknet = [];
     sknet[8] = Key.back;

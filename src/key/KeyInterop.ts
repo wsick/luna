@@ -1,21 +1,6 @@
 namespace tiny.key {
     // Good Resource: http://unixpapa.com/js/key.html
 
-    export interface IKeyInterop {
-        attach(canvas: HTMLCanvasElement): IKeyInterop;
-        handle(handlers: IKeyInteropHandlers): IKeyInterop;
-        unhandle(): IKeyInterop;
-    }
-
-    export interface IKeyInteropHandlers {
-        // Down Handler:
-        //   returning true will capture event and prevent bubbling
-        down(args: IKeyEventArgs): boolean;
-        // Up Handler:
-        //   returning true will capture event and prevent bubbling
-        up(args: IKeyEventArgs): boolean;
-    }
-
     var NO_HANDLERS: IKeyInteropHandlers = {
         down(args: IKeyEventArgs): boolean {
             return false;
