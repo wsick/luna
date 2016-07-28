@@ -1,3 +1,5 @@
+/// <reference path="TouchInterop" />
+
 namespace tiny.touch {
     export class PointerTouchInterop extends TouchInterop {
         attach(canvas: HTMLCanvasElement): ITouchInterop {

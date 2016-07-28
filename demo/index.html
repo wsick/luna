@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tiny Demo</title>
+    <script src="lib/tiny/dist/tiny.js"></script>
+    <script type="text/javascript">
+        window.onload = (e) => {
+            var input = new tiny.InputManager(document.getElementsByTagName("canvas")[0]);
+            input.key.handle({
+                down(args) {
+                    console.log("key.down", args);
+                },
+                up(args) {
+                    console.log("key.up", args);
+                },
+            });
+            input.mouse.handle({
+                press(button, pos) {
+                    console.log("mouse.press", button, pos);
+                    return false;
+                },
+                release(button, pos) {
+                    console.log("mouse.release", button, pos);
+                },
+                leave(pos) {
+                    console.log("mouse.leave", pos);
+                },
+                move(pos) {
+                    console.log("mouse.move", pos);
+                },
+                wheel(pos, delta) {
+                    console.log("mouse.wheel", pos, delta);
+                },
+            });
+            input.touch.handle({
+                down(touches) {
+                    console.log("touch.press", touches);
+                },
+                up(touches) {
+                    console.log("touch.release", touches);
+                },
+                move(touches) {
+                    console.log("touch.move", touches);
+                },
+                enter(touches) {
+                    console.log("touch.enter", touches);
+                },
+                leave(touches) {
+                    console.log("touch.leave", touches);
+                },
+            });
+        };
+    </script>
+</head>
+<body>
+<canvas id="canvas" width="800" height="600" style="border: solid 1px gray;">
+</canvas>
+</body>
+</html>

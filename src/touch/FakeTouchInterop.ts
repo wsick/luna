@@ -1,3 +1,5 @@
+/// <reference path="TouchInterop" />
+
 namespace tiny.touch {
     export class FakeTouchInterop implements ITouchInterop {
         attach(canvas: HTMLCanvasElement): ITouchInterop {

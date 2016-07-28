@@ -1,7 +1,7 @@
 var fs = require('fs'),
     typings = require('bower-typings'),
     allTypings = typings(),
-    name = 'puck',
+    name = 'tiny',
     meta = {
         name: name,
         src: [
@@ -17,6 +17,18 @@ var fs = require('fs'),
                     'typings/*.d.ts',
                     'test/**/*.ts',
                     '!test/lib/**/*.ts',
+                    'dist/' + name + '.d.ts'
+                ].concat(allTypings)
+            },
+            {
+                name: 'demo',
+                ignore: 'lib/qunit',
+                port: 8003,
+                symdirs: ['dist', 'src'],
+                src: [
+                    'typings/*.d.ts',
+                    'demo/**/*.ts',
+                    '!demo/lib/**/*.ts',
                     'dist/' + name + '.d.ts'
                 ].concat(allTypings)
             }

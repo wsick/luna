@@ -1,3 +1,13 @@
+/// <reference path="key/KeyInterop" />
+/// <reference path="key/IEKeyInterop" />
+/// <reference path="key/NetscapeKeyInterop" />
+/// <reference path="mouse/MouseInterop" />
+/// <reference path="mouse/IEMouseInterop" />
+/// <reference path="mouse/NetscapeMouseInterop" />
+/// <reference path="touch/FakeTouchInterop" />
+/// <reference path="touch/PointerTouchInterop" />
+/// <reference path="touch/NonPointerTouchInterop" />
+
 namespace tiny {
     import IMouseInterop = tiny.mouse.IMouseInterop;
     import IKeyInterop = tiny.key.IKeyInterop;

@@ -1,3 +1,5 @@
+/// <reference path="Key" />
+
 namespace tiny.key {
     var keyFromKeyCode: Key[] = [];
     keyFromKeyCode[8] = Key.back;
