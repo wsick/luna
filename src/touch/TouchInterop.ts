@@ -25,16 +25,19 @@ namespace tiny.touch {
             return window.pageYOffset + this.$canvasOffset.y;
         }
 
-        attach(canvas: HTMLCanvasElement) {
+        attach(canvas: HTMLCanvasElement): this {
             this.$canvasOffset = this.calcOffset(canvas);
+            return this;
         }
 
-        handle(handlers: ITouchInteropHandlers) {
+        handle(handlers: ITouchInteropHandlers): this {
             this.$handlers = handlers;
+            return this;
         }
 
-        unhandle() {
+        unhandle(): this {
             this.$handlers = NO_HANDLERS;
+            return this;
         }
 
         private calcOffset(canvas: HTMLCanvasElement): IPoint {

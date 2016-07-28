@@ -1,8 +1,8 @@
 namespace tiny.mouse {
     export interface IMouseInterop {
-        attach(canvas: HTMLCanvasElement);
-        handle(handlers: IMouseInteropHandlers);
-        unhandle();
+        attach(canvas: HTMLCanvasElement): this;
+        handle(handlers: IMouseInteropHandlers): this;
+        unhandle(): this;
     }
 
     export interface IMouseInteropHandlers {
@@ -32,7 +32,7 @@ namespace tiny.mouse {
         private $isContextMenuDisabled: boolean = false;
         private $handlers: IMouseInteropHandlers = NO_HANDLERS;
 
-        attach(canvas: HTMLCanvasElement) {
+        attach(canvas: HTMLCanvasElement): this {
             this.$canvasOffset = this.calcOffset(canvas);
 
             canvas.addEventListener("contextmenu", (e) => this.handleContextMenu(window.event ? <any>window.event : e));
@@ -45,14 +45,18 @@ namespace tiny.mouse {
             canvas.addEventListener("mousewheel", (e) => this.handleWheel(window.event ? <any>window.event : e));
             //Firefox
             canvas.addEventListener("DOMMouseScroll", (e) => this.handleWheel(window.event ? <any>window.event : e));
+
+            return this;
         }
 
-        handle(handlers: IMouseInteropHandlers) {
+        handle(handlers: IMouseInteropHandlers): this {
             this.$handlers = handlers;
+            return this;
         }
 
-        unhandle() {
+        unhandle(): this {
             this.$handlers = NO_HANDLERS;
+            return this;
         }
 
         isLeftButton(button: number): boolean {

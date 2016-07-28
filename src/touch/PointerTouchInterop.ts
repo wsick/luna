@@ -1,6 +1,6 @@
 namespace tiny.touch {
     export class PointerTouchInterop extends TouchInterop {
-        attach(canvas: HTMLCanvasElement) {
+        attach(canvas: HTMLCanvasElement): this {
             super.attach(canvas);
             canvas.style.msTouchAction = "none";
             (<any>canvas.style).touchAction = "none";
@@ -21,6 +21,7 @@ namespace tiny.touch {
                 canvas.addEventListener("pointerenter", (e) => this.handlePointerEnter(window.event ? <any>window.event : e));
                 canvas.addEventListener("pointerleave", (e) => this.handlePointerLeave(window.event ? <any>window.event : e));
             }
+            return this;
         }
 
         private handlePointerDown(e: MSPointerEvent) {
