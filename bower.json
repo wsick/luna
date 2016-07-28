@@ -1,0 +1,15 @@
+{
+  "name": "tiny",
+  "version": "0.1.0",
+  "ignore": [
+    "gulp",
+    "test",
+    "typings",
+    "gulpfile.js"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "qunit": "~2.0.1"
+  }
+}

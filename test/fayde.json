@@ -1,0 +1,15 @@
+{
+  "libs": {
+    "tiny": {
+      "exports": "tiny",
+      "base": "lib/tiny"
+    }
+  },
+  "themes": {
+    "tiny": "none"
+  },
+  "debug": {
+    "warnMissingThemes": false,
+    "warnBrokenPath": false
+  }
+}
