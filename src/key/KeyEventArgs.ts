@@ -19,7 +19,6 @@ namespace tiny.key {
         char: string;
 
         constructor(modifiers: IKeyModifiers, keyCode: number, key: Key, c?: string) {
-            super();
             this.modifiers = modifiers;
             this.platformKeyCode = keyCode;
             this.key = key == null ? Key.unknown : key;

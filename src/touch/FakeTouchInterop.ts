@@ -1,12 +1,15 @@
 namespace tiny.touch {
     export class FakeTouchInterop implements ITouchInterop {
-        attach(canvas: HTMLCanvasElement) {
+        attach(canvas: HTMLCanvasElement): ITouchInterop {
+            return this;
         }
 
-        handle(handlers: ITouchInteropHandlers) {
+        handle(handlers: ITouchInteropHandlers): ITouchInterop {
+            return this;
         }
 
-        unhandle() {
+        unhandle(): ITouchInterop {
+            return this;
         }
     }
 }

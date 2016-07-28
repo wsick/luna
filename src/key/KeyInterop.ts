@@ -2,9 +2,9 @@ namespace tiny.key {
     // Good Resource: http://unixpapa.com/js/key.html
 
     export interface IKeyInterop {
-        attach(canvas: HTMLCanvasElement): this;
-        handle(handlers: IKeyInteropHandlers): this;
-        unhandle(): this;
+        attach(canvas: HTMLCanvasElement): IKeyInterop;
+        handle(handlers: IKeyInteropHandlers): IKeyInterop;
+        unhandle(): IKeyInterop;
     }
 
     export interface IKeyInteropHandlers {
@@ -28,18 +28,18 @@ namespace tiny.key {
     export class KeyInterop implements IKeyInterop {
         private $handlers: IKeyInteropHandlers = NO_HANDLERS;
 
-        attach(): this {
+        attach(): IKeyInterop {
             document.onkeypress = (e) => this.$handlePress(e);
             document.onkeydown = (e) => this.$handleDown(e);
             return this;
         }
 
-        handle(handlers: IKeyInteropHandlers): this {
+        handle(handlers: IKeyInteropHandlers): IKeyInterop {
             this.$handlers = handlers;
             return this;
         }
 
-        unhandle(): this {
+        unhandle(): IKeyInterop {
             this.$handlers = NO_HANDLERS;
             return this;
         }
@@ -49,6 +49,7 @@ namespace tiny.key {
             var args = this.createPressArgs(evt);
             if (!args)
                 return;
+            Object.freeze(args);
             if (this.$handlers.down(args)) {
                 evt.preventDefault();
                 return false;
@@ -60,6 +61,7 @@ namespace tiny.key {
             var args = this.createDownArgs(evt);
             if (!args)
                 return;
+            Object.freeze(args);
             if (this.$handlers.down(args) && this.isPreventable(args)) {
                 evt.preventDefault();
                 return false;

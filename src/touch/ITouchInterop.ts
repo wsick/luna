@@ -1,8 +1,8 @@
 namespace tiny.touch {
     export interface ITouchInterop {
-        attach(canvas: HTMLCanvasElement): this;
-        handle(handlers: ITouchInteropHandlers): this;
-        unhandle(): this;
+        attach(canvas: HTMLCanvasElement): ITouchInterop;
+        handle(handlers: ITouchInteropHandlers): ITouchInterop;
+        unhandle(): ITouchInterop;
     }
 
     export interface ITouchInteropHandlers {

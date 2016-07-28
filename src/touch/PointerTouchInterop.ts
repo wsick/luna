@@ -1,6 +1,6 @@
 namespace tiny.touch {
     export class PointerTouchInterop extends TouchInterop {
-        attach(canvas: HTMLCanvasElement): this {
+        attach(canvas: HTMLCanvasElement): ITouchInterop {
             super.attach(canvas);
             canvas.style.msTouchAction = "none";
             (<any>canvas.style).touchAction = "none";

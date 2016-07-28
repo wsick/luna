@@ -1,14 +1,14 @@
 namespace tiny.mouse {
     export interface IMouseInterop {
-        attach(canvas: HTMLCanvasElement): this;
-        handle(handlers: IMouseInteropHandlers): this;
-        unhandle(): this;
+        attach(canvas: HTMLCanvasElement): IMouseInterop;
+        handle(handlers: IMouseInteropHandlers): IMouseInterop;
+        unhandle(): IMouseInterop;
     }
 
     export interface IMouseInteropHandlers {
         press(button: number, pos: IPoint): boolean;
         release(button: number, pos: IPoint);
-        leave(pos: IPoint): boolean;
+        leave(pos: IPoint);
         move(pos: IPoint);
         wheel(pos: IPoint, delta: number);
     }
@@ -19,7 +19,7 @@ namespace tiny.mouse {
         },
         release(button: number, pos: IPoint) {
         },
-        leave(pos: IPoint): boolean {
+        leave(pos: IPoint) {
         },
         move(pos: IPoint) {
         },
@@ -32,7 +32,7 @@ namespace tiny.mouse {
         private $isContextMenuDisabled: boolean = false;
         private $handlers: IMouseInteropHandlers = NO_HANDLERS;
 
-        attach(canvas: HTMLCanvasElement): this {
+        attach(canvas: HTMLCanvasElement): IMouseInterop {
             this.$canvasOffset = this.calcOffset(canvas);
 
             canvas.addEventListener("contextmenu", (e) => this.handleContextMenu(window.event ? <any>window.event : e));
@@ -49,12 +49,12 @@ namespace tiny.mouse {
             return this;
         }
 
-        handle(handlers: IMouseInteropHandlers): this {
+        handle(handlers: IMouseInteropHandlers): IMouseInterop {
             this.$handlers = handlers;
             return this;
         }
 
-        unhandle(): this {
+        unhandle(): IMouseInterop {
             this.$handlers = NO_HANDLERS;
             return this;
         }

@@ -7,7 +7,7 @@ namespace tiny.mouse {
             this.$stopIEContextMenu = true;
         }
 
-        attach(canvas: HTMLCanvasElement): this {
+        attach(canvas: HTMLCanvasElement): IMouseInterop {
             canvas.oncontextmenu = (e) => this.handleIEContextMenu(e);
             return super.attach(canvas);
         }

@@ -1,6 +1,6 @@
 namespace tiny.touch {
     export class NonPointerTouchInterop extends TouchInterop {
-        attach(canvas: HTMLCanvasElement): this {
+        attach(canvas: HTMLCanvasElement): ITouchInterop {
             super.attach(canvas);
             canvas.addEventListener("touchstart", (e) => this.handleTouchStart(window.event ? <any>window.event : e));
             canvas.addEventListener("touchend", (e) => this.handleTouchEnd(window.event ? <any>window.event : e));
