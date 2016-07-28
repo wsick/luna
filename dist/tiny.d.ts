@@ -276,8 +276,8 @@ declare namespace tiny.mouse {
         unhandle(): IMouseInterop;
     }
     interface IMouseInteropHandlers {
-        press(button: number, pos: IPoint): boolean;
-        release(button: number, pos: IPoint): any;
+        down(button: number, pos: IPoint): boolean;
+        up(button: number, pos: IPoint): any;
         leave(pos: IPoint): any;
         move(pos: IPoint): any;
         wheel(pos: IPoint, delta: number): any;

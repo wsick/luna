@@ -299,10 +299,10 @@ var tiny;
     var mouse;
     (function (mouse) {
         var NO_HANDLERS = {
-            press: function (button, pos) {
+            down: function (button, pos) {
                 return false;
             },
-            release: function (button, pos) {
+            up: function (button, pos) {
             },
             leave: function (pos) {
             },
@@ -377,14 +377,14 @@ var tiny;
                 tiny.key.keyboard.refresh(evt);
                 var button = evt.which ? evt.which : evt.button;
                 var pos = this.getMousePosition(evt);
-                if (this.$handlers.press(button, pos))
+                if (this.$handlers.down(button, pos))
                     this.disableNextContextMenu();
             };
             MouseInterop.prototype.handleButtonRelease = function (evt) {
                 tiny.key.keyboard.refresh(evt);
                 var button = evt.which ? evt.which : evt.button;
                 var pos = this.getMousePosition(evt);
-                this.$handlers.release(button, pos);
+                this.$handlers.up(button, pos);
             };
             MouseInterop.prototype.handleOut = function (evt) {
                 tiny.key.keyboard.refresh(evt);

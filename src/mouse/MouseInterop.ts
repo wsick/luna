@@ -1,9 +1,9 @@
 namespace tiny.mouse {
     var NO_HANDLERS: IMouseInteropHandlers = {
-        press(button: number, pos: IPoint): boolean {
+        down(button: number, pos: IPoint): boolean {
             return false;
         },
-        release(button: number, pos: IPoint) {
+        up(button: number, pos: IPoint) {
         },
         leave(pos: IPoint) {
         },
@@ -91,7 +91,7 @@ namespace tiny.mouse {
             key.keyboard.refresh(evt);
             var button = evt.which ? evt.which : evt.button;
             var pos = this.getMousePosition(evt);
-            if (this.$handlers.press(button, pos))
+            if (this.$handlers.down(button, pos))
                 this.disableNextContextMenu();
         }
 
@@ -99,7 +99,7 @@ namespace tiny.mouse {
             key.keyboard.refresh(evt);
             var button = evt.which ? evt.which : evt.button;
             var pos = this.getMousePosition(evt);
-            this.$handlers.release(button, pos);
+            this.$handlers.up(button, pos);
         }
 
         private handleOut(evt) {

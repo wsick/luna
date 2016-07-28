@@ -16,12 +16,12 @@
                 },
             });
             input.mouse.handle({
-                press(button, pos) {
-                    console.log("mouse.press", button, pos);
+                down(button, pos) {
+                    console.log("mouse.down", button, pos);
                     return false;
                 },
-                release(button, pos) {
-                    console.log("mouse.release", button, pos);
+                up(button, pos) {
+                    console.log("mouse.up", button, pos);
                 },
                 leave(pos) {
                     console.log("mouse.leave", pos);
