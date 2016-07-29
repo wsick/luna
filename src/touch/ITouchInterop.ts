@@ -6,10 +6,19 @@ namespace tiny.touch {
     }
 
     export interface ITouchInteropHandlers {
-        down(touches: ITouchDevice[]);
-        up(touches: ITouchDevice[]);
-        move(touches: ITouchDevice[]);
-        enter(touches: ITouchDevice[]);
-        leave(touches: ITouchDevice[]);
+        down: ITouchEvent;
+        up: ITouchEvent;
+        move: ITouchEvent;
+        enter: ITouchEvent;
+        leave: ITouchEvent;
+    }
+
+    export interface ITouchEvent {
+        (args: ITouchEventArgs);
+    }
+
+    export interface ITouchEventArgs {
+        handled: boolean;
+        touches: ITouchDevice[];
     }
 }

@@ -464,15 +464,15 @@ var tiny;
     var touch;
     (function (touch) {
         var NO_HANDLERS = {
-            down: function (touches) {
+            down: function (args) {
             },
-            up: function (touches) {
+            up: function (args) {
             },
-            move: function (touches) {
+            move: function (args) {
             },
-            enter: function (touches) {
+            enter: function (args) {
             },
-            leave: function (touches) {
+            leave: function (args) {
             },
         };
         var TouchInterop = (function () {
@@ -598,29 +598,34 @@ var tiny;
                 if (e.pointerType !== "touch")
                     return;
                 e.preventDefault();
-                this.$handlers.down([this.getDevice(e)]);
+                var args = new touch.TouchEventArgs([this.getDevice(e)]);
+                this.$handlers.down(args);
             };
             PointerTouchInterop.prototype.handlePointerUp = function (e) {
                 if (e.pointerType !== "touch")
                     return;
                 var touches = [this.getDevice(e)];
-                this.$handlers.up(touches);
+                var args = new touch.TouchEventArgs(touches);
+                this.$handlers.up(args);
                 this.removeTouches(touches);
             };
             PointerTouchInterop.prototype.handlePointerMove = function (e) {
                 if (e.pointerType !== "touch")
                     return;
-                this.$handlers.move([this.getDevice(e)]);
+                var args = new touch.TouchEventArgs([this.getDevice(e)]);
+                this.$handlers.move(args);
             };
             PointerTouchInterop.prototype.handlePointerEnter = function (e) {
                 if (e.pointerType !== "touch")
                     return;
-                this.$handlers.enter([this.getDevice(e)]);
+                var args = new touch.TouchEventArgs([this.getDevice(e)]);
+                this.$handlers.enter(args);
             };
             PointerTouchInterop.prototype.handlePointerLeave = function (e) {
                 if (e.pointerType !== "touch")
                     return;
-                this.$handlers.leave([this.getDevice(e)]);
+                var args = new touch.TouchEventArgs([this.getDevice(e)]);
+                this.$handlers.leave(args);
             };
             PointerTouchInterop.prototype.getDevice = function (e) {
                 var existing = this.findTouch(e.pointerId);
@@ -671,24 +676,24 @@ var tiny;
             NonPointerTouchInterop.prototype.handleTouchStart = function (e) {
                 e.preventDefault();
                 var newTouches = this.touchArrayFromList(e.changedTouches);
-                this.$handlers.down(newTouches);
+                this.$handlers.down(new touch.TouchEventArgs(newTouches));
             };
             NonPointerTouchInterop.prototype.handleTouchEnd = function (e) {
                 var oldTouches = this.touchArrayFromList(e.changedTouches);
-                this.$handlers.up(oldTouches);
+                this.$handlers.up(new touch.TouchEventArgs(oldTouches));
                 this.removeTouches(oldTouches);
             };
             NonPointerTouchInterop.prototype.handleTouchMove = function (e) {
                 var touches = this.touchArrayFromList(e.changedTouches);
-                this.$handlers.move(touches);
+                this.$handlers.move(new touch.TouchEventArgs(touches));
             };
             NonPointerTouchInterop.prototype.handleTouchEnter = function (e) {
                 var touches = this.touchArrayFromList(e.changedTouches);
-                this.$handlers.enter(touches);
+                this.$handlers.enter(new touch.TouchEventArgs(touches));
             };
             NonPointerTouchInterop.prototype.handleTouchLeave = function (e) {
                 var touches = this.touchArrayFromList(e.changedTouches);
-                this.$handlers.leave(touches);
+                this.$handlers.leave(new touch.TouchEventArgs(touches));
             };
             NonPointerTouchInterop.prototype.touchArrayFromList = function (list) {
                 var touches = [];
@@ -978,6 +983,23 @@ var tiny;
         })();
         mouse.MouseWheelEventArgs = MouseWheelEventArgs;
     })(mouse = tiny.mouse || (tiny.mouse = {}));
+})(tiny || (tiny = {}));
+var tiny;
+(function (tiny) {
+    var touch;
+    (function (touch) {
+        var TouchEventArgs = (function () {
+            function TouchEventArgs(touches) {
+                this.handled = false;
+                Object.freeze(touches);
+                Object.defineProperties(this, {
+                    "touches": { value: touches, writable: false },
+                });
+            }
+            return TouchEventArgs;
+        })();
+        touch.TouchEventArgs = TouchEventArgs;
+    })(touch = tiny.touch || (tiny.touch = {}));
 })(tiny || (tiny = {}));
 
 //# sourceMappingURL=tiny.js.map

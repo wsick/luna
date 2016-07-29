@@ -354,10 +354,24 @@ declare namespace tiny.touch {
         unhandle(): ITouchInterop;
     }
     interface ITouchInteropHandlers {
-        down(touches: ITouchDevice[]): any;
-        up(touches: ITouchDevice[]): any;
-        move(touches: ITouchDevice[]): any;
-        enter(touches: ITouchDevice[]): any;
-        leave(touches: ITouchDevice[]): any;
+        down: ITouchEvent;
+        up: ITouchEvent;
+        move: ITouchEvent;
+        enter: ITouchEvent;
+        leave: ITouchEvent;
+    }
+    interface ITouchEvent {
+        (args: ITouchEventArgs): any;
+    }
+    interface ITouchEventArgs {
+        handled: boolean;
+        touches: ITouchDevice[];
+    }
+}
+declare namespace tiny.touch {
+    class TouchEventArgs implements ITouchEventArgs {
+        handled: boolean;
+        touches: ITouchDevice[];
+        constructor(touches: ITouchDevice[]);
     }
 }

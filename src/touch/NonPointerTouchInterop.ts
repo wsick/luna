@@ -15,28 +15,28 @@ namespace tiny.touch {
         protected handleTouchStart(e: TouchEvent) {
             e.preventDefault();
             var newTouches = this.touchArrayFromList(e.changedTouches);
-            this.$handlers.down(newTouches);
+            this.$handlers.down(new TouchEventArgs(newTouches));
         }
 
         protected handleTouchEnd(e: TouchEvent) {
             var oldTouches = this.touchArrayFromList(e.changedTouches);
-            this.$handlers.up(oldTouches);
+            this.$handlers.up(new TouchEventArgs(oldTouches));
             this.removeTouches(oldTouches);
         }
 
         protected handleTouchMove(e: TouchEvent) {
             var touches = this.touchArrayFromList(e.changedTouches);
-            this.$handlers.move(touches);
+            this.$handlers.move(new TouchEventArgs(touches));
         }
 
         protected handleTouchEnter(e: TouchEvent) {
             var touches = this.touchArrayFromList(e.changedTouches);
-            this.$handlers.enter(touches);
+            this.$handlers.enter(new TouchEventArgs(touches));
         }
 
         protected handleTouchLeave(e: TouchEvent) {
             var touches = this.touchArrayFromList(e.changedTouches);
-            this.$handlers.leave(touches);
+            this.$handlers.leave(new TouchEventArgs(touches));
         }
 
         protected touchArrayFromList(list: TouchList): ITouchDevice[] {

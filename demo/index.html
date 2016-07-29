@@ -16,38 +16,37 @@
                 },
             });
             input.mouse.handle({
-                down(button, pos) {
-                    console.log("mouse.down", button, pos);
-                    return false;
+                down(args) {
+                    console.log("mouse.down", args);
                 },
-                up(button, pos) {
-                    console.log("mouse.up", button, pos);
+                up(args) {
+                    console.log("mouse.up", args);
                 },
-                leave(pos) {
-                    console.log("mouse.leave", pos);
+                leave(args) {
+                    console.log("mouse.leave", args);
                 },
-                move(pos) {
-                    console.log("mouse.move", pos);
+                move(args) {
+                    console.log("mouse.move", args);
                 },
-                wheel(pos, delta) {
-                    console.log("mouse.wheel", pos, delta);
+                wheel(args) {
+                    console.log("mouse.wheel", args);
                 },
             });
             input.touch.handle({
-                down(touches) {
-                    console.log("touch.press", touches);
+                down(args) {
+                    console.log("touch.press", args);
                 },
-                up(touches) {
-                    console.log("touch.release", touches);
+                up(args) {
+                    console.log("touch.release", args);
                 },
-                move(touches) {
-                    console.log("touch.move", touches);
+                move(args) {
+                    console.log("touch.move", args);
                 },
-                enter(touches) {
-                    console.log("touch.enter", touches);
+                enter(args) {
+                    console.log("touch.enter", args);
                 },
-                leave(touches) {
-                    console.log("touch.leave", touches);
+                leave(args) {
+                    console.log("touch.leave", args);
                 },
             });
         };

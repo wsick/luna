@@ -1,14 +1,14 @@
 namespace tiny.touch {
     var NO_HANDLERS: ITouchInteropHandlers = {
-        down(touches: ITouchDevice[]) {
+        down(args: ITouchEventArgs) {
         },
-        up(touches: ITouchDevice[]) {
+        up(args: ITouchEventArgs) {
         },
-        move(touches: ITouchDevice[]) {
+        move(args: ITouchEventArgs) {
         },
-        enter(touches: ITouchDevice[]) {
+        enter(args: ITouchEventArgs) {
         },
-        leave(touches: ITouchDevice[]) {
+        leave(args: ITouchEventArgs) {
         },
     };
 

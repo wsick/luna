@@ -30,33 +30,38 @@ namespace tiny.touch {
             if (e.pointerType !== "touch")
                 return;
             e.preventDefault();
-            this.$handlers.down([this.getDevice(e)]);
+            var args = new TouchEventArgs([this.getDevice(e)]);
+            this.$handlers.down(args);
         }
 
         private handlePointerUp(e: MSPointerEvent) {
             if (e.pointerType !== "touch")
                 return;
             var touches = [this.getDevice(e)];
-            this.$handlers.up(touches);
+            var args = new TouchEventArgs(touches);
+            this.$handlers.up(args);
             this.removeTouches(touches);
         }
 
         private handlePointerMove(e: MSPointerEvent) {
             if (e.pointerType !== "touch")
                 return;
-            this.$handlers.move([this.getDevice(e)]);
+            var args = new TouchEventArgs([this.getDevice(e)]);
+            this.$handlers.move(args);
         }
 
         private handlePointerEnter(e: MSPointerEvent) {
             if (e.pointerType !== "touch")
                 return;
-            this.$handlers.enter([this.getDevice(e)]);
+            var args = new TouchEventArgs([this.getDevice(e)]);
+            this.$handlers.enter(args);
         }
 
         private handlePointerLeave(e: MSPointerEvent) {
             if (e.pointerType !== "touch")
                 return;
-            this.$handlers.leave([this.getDevice(e)]);
+            var args = new TouchEventArgs([this.getDevice(e)]);
+            this.$handlers.leave(args);
         }
 
         protected getDevice(e: MSPointerEvent) {
