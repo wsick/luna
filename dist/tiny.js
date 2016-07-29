@@ -33,7 +33,6 @@ var tiny;
                 var args = this.createPressArgs(evt);
                 if (!args)
                     return;
-                Object.freeze(args);
                 if (this.$handlers.down(args)) {
                     evt.preventDefault();
                     return false;
@@ -44,7 +43,6 @@ var tiny;
                 var args = this.createDownArgs(evt);
                 if (!args)
                     return;
-                Object.freeze(args);
                 if (this.$handlers.down(args) && this.isPreventable(args)) {
                     evt.preventDefault();
                     return false;
@@ -299,16 +297,15 @@ var tiny;
     var mouse;
     (function (mouse) {
         var NO_HANDLERS = {
-            down: function (button, pos) {
-                return false;
+            down: function (args) {
             },
-            up: function (button, pos) {
+            up: function (args) {
             },
-            leave: function (pos) {
+            leave: function (args) {
             },
-            move: function (pos) {
+            move: function (args) {
             },
-            wheel: function (pos, delta) {
+            wheel: function (args) {
             },
         };
         var MouseInterop = (function () {
@@ -375,26 +372,25 @@ var tiny;
             };
             MouseInterop.prototype.handleButtonPress = function (evt) {
                 tiny.key.keyboard.refresh(evt);
-                var button = evt.which ? evt.which : evt.button;
-                var pos = this.getMousePosition(evt);
-                if (this.$handlers.down(button, pos))
+                var args = new mouse.MouseButtonEventArgs(evt.which ? evt.which : evt.button, this.getMousePosition(evt));
+                this.$handlers.down(args);
+                if (args.handled)
                     this.disableNextContextMenu();
             };
             MouseInterop.prototype.handleButtonRelease = function (evt) {
                 tiny.key.keyboard.refresh(evt);
-                var button = evt.which ? evt.which : evt.button;
-                var pos = this.getMousePosition(evt);
-                this.$handlers.up(button, pos);
+                var args = new mouse.MouseButtonEventArgs(evt.which ? evt.which : evt.button, this.getMousePosition(evt));
+                this.$handlers.up(args);
             };
             MouseInterop.prototype.handleOut = function (evt) {
                 tiny.key.keyboard.refresh(evt);
-                var pos = this.getMousePosition(evt);
-                this.$handlers.leave(pos);
+                var args = new mouse.MouseEventArgs(this.getMousePosition(evt));
+                this.$handlers.leave(args);
             };
             MouseInterop.prototype.handleMove = function (evt) {
                 tiny.key.keyboard.refresh(evt);
-                var pos = this.getMousePosition(evt);
-                this.$handlers.move(pos);
+                var args = new mouse.MouseEventArgs(this.getMousePosition(evt));
+                this.$handlers.move(args);
             };
             MouseInterop.prototype.handleWheel = function (evt) {
                 tiny.key.keyboard.refresh(evt);
@@ -407,7 +403,8 @@ var tiny;
                     evt.preventDefault();
                 evt.returnValue = false;
                 var pos = this.getMousePosition(evt);
-                this.$handlers.wheel(pos, delta);
+                var args = new mouse.MouseWheelEventArgs(this.getMousePosition(evt), delta);
+                this.$handlers.wheel(args);
             };
             return MouseInterop;
         })();
@@ -931,15 +928,56 @@ var tiny;
     (function (key_1) {
         var KeyEventArgs = (function () {
             function KeyEventArgs(modifiers, keyCode, key, c) {
-                this.modifiers = modifiers;
-                this.platformKeyCode = keyCode;
-                this.key = key == null ? key_1.Key.unknown : key;
-                this.char = c;
+                this.handled = false;
+                Object.defineProperties(this, {
+                    "modifiers": { value: modifiers, writable: false },
+                    "platformKeyCode": { value: keyCode, writable: false },
+                    "key": { value: key == null ? key_1.Key.unknown : key, writable: false },
+                    "char": { value: c, writable: false },
+                });
             }
             return KeyEventArgs;
         })();
         key_1.KeyEventArgs = KeyEventArgs;
     })(key = tiny.key || (tiny.key = {}));
+})(tiny || (tiny = {}));
+var tiny;
+(function (tiny) {
+    var mouse;
+    (function (mouse) {
+        var MouseEventArgs = (function () {
+            function MouseEventArgs(pos) {
+                this.handled = false;
+                Object.defineProperties(this, {
+                    "position": { value: pos, writable: false },
+                });
+            }
+            return MouseEventArgs;
+        })();
+        mouse.MouseEventArgs = MouseEventArgs;
+        var MouseButtonEventArgs = (function () {
+            function MouseButtonEventArgs(button, pos) {
+                this.handled = false;
+                Object.defineProperties(this, {
+                    "button": { value: button, writable: false },
+                    "position": { value: pos, writable: false },
+                });
+            }
+            return MouseButtonEventArgs;
+        })();
+        mouse.MouseButtonEventArgs = MouseButtonEventArgs;
+        var MouseWheelEventArgs = (function () {
+            function MouseWheelEventArgs(pos, delta) {
+                this.handled = false;
+                Object.defineProperties(this, {
+                    "position": { value: pos, writable: false },
+                    "delta": { value: delta, writable: false },
+                });
+            }
+            return MouseWheelEventArgs;
+        })();
+        mouse.MouseWheelEventArgs = MouseWheelEventArgs;
+    })(mouse = tiny.mouse || (tiny.mouse = {}));
 })(tiny || (tiny = {}));
 
 //# sourceMappingURL=tiny.js.map

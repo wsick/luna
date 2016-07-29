@@ -6,10 +6,10 @@ namespace tiny.mouse {
     }
 
     export interface IMouseInteropHandlers {
-        down(button: number, pos: IPoint): boolean;
-        up(button: number, pos: IPoint);
-        leave(pos: IPoint);
-        move(pos: IPoint);
-        wheel(pos: IPoint, delta: number);
+        down: IMouseButtonEvent;
+        up: IMouseButtonEvent;
+        leave: IMouseEvent;
+        move: IMouseEvent;
+        wheel: IMouseWheelEvent;
     }
 }

@@ -223,8 +223,11 @@ declare namespace tiny.key {
         unhandle(): IKeyInterop;
     }
     interface IKeyInteropHandlers {
-        down(args: IKeyEventArgs): boolean;
-        up(args: IKeyEventArgs): boolean;
+        down: IKeyEvent;
+        up: IKeyEvent;
+    }
+    interface IKeyEvent {
+        (args: IKeyEventArgs): any;
     }
 }
 declare namespace tiny.key {
@@ -256,17 +259,40 @@ declare namespace tiny.key {
         alt: boolean;
     }
     interface IKeyEventArgs {
+        handled: boolean;
         modifiers: IKeyModifiers;
         platformKeyCode: number;
         key: Key;
         char: string;
     }
     class KeyEventArgs implements IKeyEventArgs {
+        handled: boolean;
         modifiers: IKeyModifiers;
         platformKeyCode: number;
         key: Key;
         char: string;
         constructor(modifiers: IKeyModifiers, keyCode: number, key: Key, c?: string);
+    }
+}
+declare namespace tiny.mouse {
+    interface IMouseEvent {
+        (args: IMouseEventArgs): any;
+    }
+    interface IMouseEventArgs {
+        handled: boolean;
+        position: IPoint;
+    }
+    interface IMouseButtonEvent {
+        (args: IMouseButtonEventArgs): any;
+    }
+    interface IMouseButtonEventArgs extends IMouseEventArgs {
+        button: number;
+    }
+    interface IMouseWheelEvent {
+        (args: IMouseWheelEventArgs): any;
+    }
+    interface IMouseWheelEventArgs extends IMouseEventArgs {
+        delta: number;
     }
 }
 declare namespace tiny.mouse {
@@ -276,11 +302,30 @@ declare namespace tiny.mouse {
         unhandle(): IMouseInterop;
     }
     interface IMouseInteropHandlers {
-        down(button: number, pos: IPoint): boolean;
-        up(button: number, pos: IPoint): any;
-        leave(pos: IPoint): any;
-        move(pos: IPoint): any;
-        wheel(pos: IPoint, delta: number): any;
+        down: IMouseButtonEvent;
+        up: IMouseButtonEvent;
+        leave: IMouseEvent;
+        move: IMouseEvent;
+        wheel: IMouseWheelEvent;
+    }
+}
+declare namespace tiny.mouse {
+    class MouseEventArgs implements IMouseEventArgs {
+        handled: boolean;
+        position: IPoint;
+        constructor(pos: IPoint);
+    }
+    class MouseButtonEventArgs implements IMouseButtonEventArgs {
+        handled: boolean;
+        button: number;
+        position: IPoint;
+        constructor(button: number, pos: IPoint);
+    }
+    class MouseWheelEventArgs implements IMouseWheelEventArgs {
+        handled: boolean;
+        position: IPoint;
+        delta: number;
+        constructor(pos: IPoint, delta: number);
     }
 }
 interface Touch {

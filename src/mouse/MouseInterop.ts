@@ -1,15 +1,14 @@
 namespace tiny.mouse {
     var NO_HANDLERS: IMouseInteropHandlers = {
-        down(button: number, pos: IPoint): boolean {
-            return false;
+        down(args: IMouseButtonEventArgs) {
         },
-        up(button: number, pos: IPoint) {
+        up(args: IMouseButtonEventArgs) {
         },
-        leave(pos: IPoint) {
+        leave(args: IMouseEventArgs) {
         },
-        move(pos: IPoint) {
+        move(args: IMouseEventArgs) {
         },
-        wheel(pos: IPoint, delta: number) {
+        wheel(args: IMouseWheelEventArgs) {
         },
     };
 
@@ -89,29 +88,28 @@ namespace tiny.mouse {
 
         private handleButtonPress(evt) {
             key.keyboard.refresh(evt);
-            var button = evt.which ? evt.which : evt.button;
-            var pos = this.getMousePosition(evt);
-            if (this.$handlers.down(button, pos))
+            var args = new MouseButtonEventArgs(evt.which ? evt.which : evt.button, this.getMousePosition(evt));
+            this.$handlers.down(args);
+            if (args.handled)
                 this.disableNextContextMenu();
         }
 
         private handleButtonRelease(evt) {
             key.keyboard.refresh(evt);
-            var button = evt.which ? evt.which : evt.button;
-            var pos = this.getMousePosition(evt);
-            this.$handlers.up(button, pos);
+            var args = new MouseButtonEventArgs(evt.which ? evt.which : evt.button, this.getMousePosition(evt));
+            this.$handlers.up(args);
         }
 
         private handleOut(evt) {
             key.keyboard.refresh(evt);
-            var pos = this.getMousePosition(evt);
-            this.$handlers.leave(pos);
+            var args = new MouseEventArgs(this.getMousePosition(evt));
+            this.$handlers.leave(args);
         }
 
         private handleMove(evt) {
             key.keyboard.refresh(evt);
-            var pos = this.getMousePosition(evt);
-            this.$handlers.move(pos);
+            var args = new MouseEventArgs(this.getMousePosition(evt));
+            this.$handlers.move(args);
         }
 
         private handleWheel(evt) {
@@ -125,7 +123,8 @@ namespace tiny.mouse {
                 evt.preventDefault();
             evt.returnValue = false;
             var pos = this.getMousePosition(evt);
-            this.$handlers.wheel(pos, delta);
+            var args = new MouseWheelEventArgs(this.getMousePosition(evt), delta);
+            this.$handlers.wheel(args);
         }
     }
 }
