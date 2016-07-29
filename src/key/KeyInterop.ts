@@ -34,7 +34,6 @@ namespace tiny.key {
             var args = this.createPressArgs(evt);
             if (!args)
                 return;
-            Object.freeze(args);
             if (this.$handlers.down(args)) {
                 evt.preventDefault();
                 return false;
@@ -46,7 +45,6 @@ namespace tiny.key {
             var args = this.createDownArgs(evt);
             if (!args)
                 return;
-            Object.freeze(args);
             if (this.$handlers.down(args) && this.isPreventable(args)) {
                 evt.preventDefault();
                 return false;
